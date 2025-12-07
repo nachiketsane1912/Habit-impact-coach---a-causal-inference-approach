@@ -1,0 +1,7 @@
+{
+  "name": "Habit Impact Coach",
+  "description": "A causal inference engine that determines which habits actually drive your health outcomes using Gemini.",
+  "requestFramePermissions": [
+    "geolocation"
+  ]
+}
