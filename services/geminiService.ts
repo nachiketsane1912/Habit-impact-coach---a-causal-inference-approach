@@ -93,3 +93,48 @@ export const runCounterfactualSimulation = async (
   const result = await chat.sendMessage({ message: userQuery });
   return result.text;
 };
+
+export const parseNaturalLanguageLog = async (text: string): Promise<Partial<DailyLog>> => {
+  const ai = getClient();
+  const modelId = 'gemini-2.5-flash';
+
+  const prompt = `
+    Extract health and habit metrics from the following user journal entry into a structured JSON format.
+    
+    USER ENTRY: "${text}"
+
+    INSTRUCTIONS:
+    - Map 'coffee', 'latte', 'espresso' to 'caffeineIntake' (estimate mg: coffee=100, espresso=64).
+    - Identify 'caffeineCutoffHour' (0-24) based on the *last* time they mention caffeine.
+    - Extract 'exerciseMinutes' and 'screenTimeMinutes'.
+    - Infer 'sleepQuality', 'energyLevel', 'stressLevel' (1-10) if mentioned (e.g. "felt great" = 8-9 energy).
+    - If a field is not mentioned, do NOT include it in the JSON.
+    - Return ONLY valid JSON.
+  `;
+
+  const response = await ai.models.generateContent({
+    model: modelId,
+    contents: prompt,
+    config: {
+      responseMimeType: "application/json",
+      responseSchema: {
+        type: Type.OBJECT,
+        properties: {
+          caffeineIntake: { type: Type.INTEGER },
+          caffeineCutoffHour: { type: Type.INTEGER },
+          screenTimeMinutes: { type: Type.INTEGER },
+          exerciseMinutes: { type: Type.INTEGER },
+          meditationMinutes: { type: Type.INTEGER },
+          sleepQuality: { type: Type.INTEGER },
+          energyLevel: { type: Type.INTEGER },
+          stressLevel: { type: Type.INTEGER },
+        }
+      }
+    }
+  });
+
+  if (response.text) {
+    return JSON.parse(response.text) as Partial<DailyLog>;
+  }
+  return {};
+};
