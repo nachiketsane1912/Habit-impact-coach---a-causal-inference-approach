@@ -36,7 +36,7 @@ export const CausalEngine: React.FC<CausalEngineProps> = ({ logs }) => {
             <div className="p-2 bg-teal-500/20 rounded-lg">
               <BrainCircuit className="text-teal-400 w-6 h-6 md:w-8 md:h-8" />
             </div>
-            <h1 className="text-2xl md:text-3xl font-bold">Causal Inference Engine</h1>
+            <h1 className="text-2xl md:text-3xl font-bold">Drivers Analysis Engine</h1>
           </div>
           <p className="text-slate-300 max-w-2xl text-base md:text-lg mb-8 leading-relaxed">
             Most trackers only show correlations. We use Gemini 3 Pro to run counterfactual simulations on your history 
@@ -48,7 +48,7 @@ export const CausalEngine: React.FC<CausalEngineProps> = ({ logs }) => {
               onClick={handleRunAnalysis}
               className="w-full md:w-auto bg-teal-500 hover:bg-teal-400 text-slate-900 font-bold py-3 md:py-3 px-8 rounded-full transition-all flex items-center justify-center gap-2 shadow-lg shadow-teal-500/25"
             >
-              Run Causal Model
+              Run Drivers Analysis
               <ArrowRight size={18} />
             </button>
           )}

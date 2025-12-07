@@ -10,7 +10,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentView, setView }) => {
   const navItems = [
     { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard },
     { id: 'log', label: 'Log', icon: Activity },
-    { id: 'causal', label: 'Causal', icon: BrainCircuit },
+    { id: 'causal', label: 'Drivers Analysis', icon: BrainCircuit },
     { id: 'simulator', label: 'Sim', icon: MessageSquareText },
     { id: 'methodology', label: 'Why?', icon: BookOpen },
   ];
@@ -70,7 +70,9 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentView, setView }) => {
               <div className={`p-1 rounded-full ${currentView === item.id ? 'bg-teal-50' : ''}`}>
                 <item.icon size={22} className={currentView === item.id ? 'stroke-2' : 'stroke-[1.5]'} />
               </div>
-              <span className="text-[10px] font-medium mt-1">{item.label}</span>
+              <span className="text-[10px] font-medium mt-1 text-center leading-tight">
+                {item.label === 'Drivers Analysis' ? 'Drivers' : item.label}
+              </span>
             </button>
           ))}
         </nav>
