@@ -19,6 +19,13 @@ export interface DailyLog {
   stressLevel: number; // 1-10
 }
 
+export interface HabitIntervention {
+  id: string;
+  name: string;
+  description: string;
+  startDate: string;
+}
+
 export interface CausalInsight {
   factor: string;
   impactType: 'POSITIVE' | 'NEGATIVE' | 'NEUTRAL';
